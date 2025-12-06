@@ -1,18 +1,22 @@
 Let's walkthrough TryHackMe's room called "Investigating with Splunk"
 
-
-
 Scenario goes like this
 
 <mark>SOC Analyst Johny has observed some anomalous behaviours in the logs of a few windows machines. It looks like the adversary has access to some of these machines and successfully created some backdoor. His manager has asked him to pull those logs from suspected hosts and ingest them into Splunk for quick investigation. Our task as SOC Analyst is to examine the logs and identify the anomalies. </mark>
 
-**How many events were collected and Ingested in the index main?**
+**Q1: How many events were collected and Ingested in the index main?**
 
-search index=main timeline alltime 12256
+We know that our log index is called "main" and we just need to extend timeline to cover all entries.
 
-**On one of the infected hosts, the adversary was successful in creating a backdoor user. What is the new username?**
+![](C:\Users\Haxor\Documents\GitHub\cybersec-writeups\01_investigating_with_splunk\screenshots\ans1.png)
 
-new user - logs collected from windows in windows logs event id for user creation 4720
+The answer is **12256**
+
+**Q2: On one of the infected hosts, the adversary was successful in creating a backdoor user. What is the new username?**
+
+So new user was created and logs are collected from windows os. Windows logs event id for user creation is 4720.
+
+
 
 index=main EventID="4720" one hit 
 
