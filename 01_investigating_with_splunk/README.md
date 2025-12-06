@@ -8,7 +8,7 @@ Scenario goes like this
 
 We know that our log index is called "main" and we just need to extend timeline to cover all entries.
 
-![](C:\Users\Haxor\Documents\GitHub\cybersec-writeups\01_investigating_with_splunk\screenshots\ans1.png)
+![](screenshots\ans1.png)
 
 The answer is **12256**
 
