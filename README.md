@@ -7,7 +7,7 @@ I’m starting out as a beginner, learning step by step, with the goal of becomi
 
 ## ✍️ What’s inside
 
-- Writeups from challenges, and CTFs  
+- Writeups from challenges, and CTFs marked with 🛡️ (Blue Team) or ⚔️ (Red Team)  
 - Notes from courses and experiments  
 - Wins, mistakes, and lessons learned along the way  
 
