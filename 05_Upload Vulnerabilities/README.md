@@ -91,3 +91,13 @@ After removing the highlighted code from loading with the website, we successful
 Finally we will be using aforementioned `/admin/` page to execute our shell. This page executes files in the `/modules/` directory which is on the same level as `/content/` where payload is sitting. Therefore, we will execute `../content/EIZ.jpg` which results in a successful connection.
 
 **The flag from** `/var/www/`**, our goal in this challenge is:** THM{NzRlYTUwNTIzODMwMWZhMzBiY2JlZWU2}
+
+## 🏁 Conclusion
+
+This challenge demonstrated how client-side protections can create a false sense of security. The upload functionality appeared to enforce several restrictions — file size limits, extension validation, and magic number checks — but all of these controls were implemented in JavaScript on the client side. By intercepting and modifying the upload.js file with Burp Suite, we were able to bypass these checks entirely and upload a malicious payload.
+
+After successfully uploading the Node.js reverse shell disguised as a .jpg file, enumeration of the /content/ directory using the provided three-letter wordlist allowed us to locate the uploaded file. Finally, the /admin/ functionality was abused to execute the payload by referencing it through a relative path, which resulted in a successful reverse shell.
+
+This exercise highlights an important security lesson: validation performed only on the client side is inherently insecure. Attackers can easily manipulate requests or modify client-side code, rendering such protections ineffective. Proper input validation and security checks must always be implemented server-side to prevent this type of attack.
+
+With the shell established, retrieving the flag from /var/www/ completed the objective of the challenge.
